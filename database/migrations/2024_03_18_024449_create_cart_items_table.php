@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('cart_items', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('nama_lengkap');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('role');
-            $table->boolean('verified_email')->default(false);
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->rememberToken();
+            $table->string('cart_id');
+            $table->string('jajanan_id');
+            $table->integer('jumlah');
+            $table->integer('total_harga');
             $table->timestamps();
+
+            $table->foreign('cart_id')->references('id')->on('carts');
+            $table->foreign('jajanan_id')->references('id')->on('jajanans');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('cart_items');
     }
 };

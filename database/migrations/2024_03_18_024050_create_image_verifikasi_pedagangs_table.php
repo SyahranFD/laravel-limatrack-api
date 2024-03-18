@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('image_verifikasi_pedagangs', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('nama_lengkap');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('role');
-            $table->boolean('verified_email')->default(false);
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->rememberToken();
+            $table->string('pedagang_id');
+            $table->string('image');
             $table->timestamps();
+
+            $table->foreign('pedagang_id')->references('id')->on('pedagangs');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('image_verifikasi_pedagangs');
     }
 };

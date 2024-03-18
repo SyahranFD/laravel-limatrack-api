@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('nama_lengkap');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('role');
-            $table->boolean('verified_email')->default(false);
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->rememberToken();
+            $table->string('user_id');
+            $table->string('pedagang_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('pedagang_id')->references('id')->on('pedagangs');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('carts');
     }
 };

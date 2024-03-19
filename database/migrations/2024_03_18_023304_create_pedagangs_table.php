@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('nama_warung');
             $table->string('nama_pedagang');
-            $table->string('image');
-            $table->boolean('buka');
+            $table->string('image')->nullable()->default(null);
+            $table->boolean('buka')->default(false);
             $table->string('jam_buka');
             $table->string('jam_tutup');
             $table->string('daerah_dagang');
-            $table->float('average_rating');
-            $table->boolean('sertifikasi_halal');
+            $table->float('average_rating')->default(0);
+            $table->boolean('sertifikasi_halal')->default(false);
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamps();

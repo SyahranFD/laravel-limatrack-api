@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PedagangController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,11 @@ Route::prefix('/users')->group(function () {
     Route::get('/show', [UserController::class, 'show'])->middleware('auth:sanctum');
     Route::put('/edit', [UserController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+});
+
+Route::prefix('/pedagang')->group(function () {
+    Route::post('/store', [PedagangController::class, 'store'])->middleware('auth:sanctum');
+    Route::put('/update', [PedagangController::class, 'update'])->middleware('auth:sanctum');
+    Route::get('/show', [PedagangController::class, 'show'])->middleware('auth:sanctum');
+    Route::delete('/delete', [PedagangController::class, 'delete'])->middleware('auth:sanctum');
 });

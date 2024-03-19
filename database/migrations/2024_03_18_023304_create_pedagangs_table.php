@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('daerah_dagang');
             $table->float('average_rating')->default(0);
             $table->boolean('sertifikasi_halal')->default(false);
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

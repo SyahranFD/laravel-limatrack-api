@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public function pedagang()
     {
-        return $this->hasMany(Pedagang::class);
+        return $this->hasOne(Pedagang::class);
     }
 
     public function cart()

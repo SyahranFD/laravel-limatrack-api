@@ -23,13 +23,10 @@ class PedagangRequest extends FormRequest
     {
         return [
             'nama_warung' => 'required|max:255',
-            'nama_pedagang' => 'required|max:255',
             // 'image' => 'required|image',
-            'buka' => 'required|boolean',
             'jam_buka' => 'required|max:255',
             'jam_tutup' => 'required|max:255',
             'daerah_dagang' => 'required|max:255',
-            'average_rating' => 'required|numeric',
         ];
     }
 }

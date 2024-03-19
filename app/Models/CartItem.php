@@ -9,6 +9,8 @@ class CartItem extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'cart_id',

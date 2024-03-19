@@ -9,6 +9,8 @@ class OrderItem extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'order_id',

@@ -9,6 +9,8 @@ class ZonaTerlarang extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'latitude',

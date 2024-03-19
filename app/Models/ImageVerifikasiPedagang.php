@@ -9,6 +9,8 @@ class ImageVerifikasiPedagang extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'pedagang_id',

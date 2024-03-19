@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pedagang extends Model
 {
@@ -27,39 +29,38 @@ class Pedagang extends Model
         'longitude',
     ];
 
-    // belongsTo
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     // hasMany
-    public function jajanan()
+    public function jajanan(): HasMany
     {
         return $this->hasMany(Jajanan::class);
     }
 
-    public function imageVerifikasiPedagang()
+    public function imageVerifikasiPedagang(): HasMany
     {
         return $this->hasMany(ImageVerifikasiPedagang::class);
     }
 
-    public function cart()
+    public function cart(): HasMany
     {
         return $this->hasMany(Cart::class);
     }
 
-    public function order()
+    public function order(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function langganan()
+    public function langganan(): HasMany
     {
         return $this->hasMany(Langganan::class);
     }
 
-    public function rating()
+    public function rating(): HasMany
     {
         return $this->hasMany(Rating::class);
     }

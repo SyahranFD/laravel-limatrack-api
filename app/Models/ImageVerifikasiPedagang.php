@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ImageVerifikasiPedagang extends Model
 {
@@ -17,7 +18,7 @@ class ImageVerifikasiPedagang extends Model
         'image',
     ];
 
-    public function pedagang()
+    public function pedagang(): BelongsTo
     {
         return $this->belongsTo(Pedagang::class);
     }

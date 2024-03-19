@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Langganan extends Model
 {
@@ -17,12 +18,12 @@ class Langganan extends Model
         'pedagang_id',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function pedagang()
+    public function pedagang(): BelongsTo
     {
         return $this->belongsTo(Pedagang::class);
     }

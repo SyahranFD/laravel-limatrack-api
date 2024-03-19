@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
@@ -20,18 +22,18 @@ class Order extends Model
     ];
 
     // belongsTo
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function pedagang()
+    public function pedagang(): BelongsTo
     {
         return $this->belongsTo(Pedagang::class);
     }
 
     // hasMany
-    public function orderItem()
+    public function orderItem(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }

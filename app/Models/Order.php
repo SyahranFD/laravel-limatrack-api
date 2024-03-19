@@ -19,6 +19,7 @@ class Order extends Model
         'metode_pembayaran',
     ];
 
+    // belongsTo
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -27,5 +28,11 @@ class Order extends Model
     public function pedagang()
     {
         return $this->belongsTo(Pedagang::class);
+    }
+
+    // hasMany
+    public function orderItem()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

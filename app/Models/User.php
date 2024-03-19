@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -38,4 +39,29 @@ class User extends Authenticatable
         'password',
         // 'remember_token',
     ];
+
+    public function pedagang()
+    {
+        return $this->hasMany(Pedagang::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function langganan()
+    {
+        return $this->hasMany(Langganan::class);
+    }
+
+    public function rating()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

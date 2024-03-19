@@ -12,7 +12,7 @@ class ImageVerifikasiPedagang extends Model
     protected $fillable = [
         'id',
         'pedagang_id',
-        'image'
+        'image',
     ];
 
     public function pedagang()

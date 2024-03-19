@@ -22,7 +22,7 @@ class Pedagang extends Model
         'average_rating',
         'sertifikasi_halal',
         'latitude',
-        'longitude'
+        'longitude',
     ];
 
     public function user()

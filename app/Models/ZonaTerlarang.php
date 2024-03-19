@@ -13,6 +13,6 @@ class ZonaTerlarang extends Model
         'id',
         'latitude',
         'longitude',
-        'radius'
+        'radius',
     ];
 }

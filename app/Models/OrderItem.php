@@ -14,7 +14,7 @@ class OrderItem extends Model
         'order_id',
         'jajanan_id',
         'jumlah',
-        'total_harga'
+        'total_harga',
     ];
 
     public function order()

@@ -20,12 +20,12 @@ class UserController extends Controller
             ->first();
         if ($checkEmailExist) {
             return response([
-                'message' => 'Email already exist'
+                'message' => 'Email already exist',
             ], 409);
         }
 
         $userData = [
-            'id' => 'user-' . Str::random(10),
+            'id' => 'user-'.Str::random(10),
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -34,7 +34,7 @@ class UserController extends Controller
 
         $checkIdExist = User::where('id', $userData['id'])->first();
         while ($checkIdExist) {
-            $userData['id'] = 'user-' . Str::random(10);
+            $userData['id'] = 'user-'.Str::random(10);
         }
 
         $user = User::create($userData);
@@ -42,11 +42,11 @@ class UserController extends Controller
 
         return response([
             'data' => $user,
-            'token' => $token
+            'token' => $token,
         ], 201);
     }
 
-    public function loginCustomer(LoginRequest $request) 
+    public function loginCustomer(LoginRequest $request)
     {
         $request->validated();
 
@@ -54,9 +54,9 @@ class UserController extends Controller
             ->where('role', 'customer')
             ->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return response([
-                'message' => 'Email or Password Is Invalid'
+                'message' => 'Email or Password Is Invalid',
             ], 409);
         }
 
@@ -64,7 +64,7 @@ class UserController extends Controller
 
         return response([
             'data' => $user,
-            'token' => $token
+            'token' => $token,
         ], 200);
     }
 
@@ -78,12 +78,12 @@ class UserController extends Controller
 
         if ($checkEmailExist) {
             return response([
-                'message' => 'Email already exist'
+                'message' => 'Email already exist',
             ], 409);
         }
 
         $userData = [
-            'id' => 'user-' . uniqid(),
+            'id' => 'user-'.uniqid(),
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -92,7 +92,7 @@ class UserController extends Controller
 
         $checkIdExist = User::where('id', $userData['id'])->first();
         while ($checkIdExist) {
-            $userData['id'] = 'user-' . Str::random(10);
+            $userData['id'] = 'user-'.Str::random(10);
         }
 
         $user = User::create($userData);
@@ -100,11 +100,11 @@ class UserController extends Controller
 
         return response([
             'data' => $user,
-            'token' => $token
+            'token' => $token,
         ], 201);
     }
 
-    public function loginPedagang(LoginRequest $request) 
+    public function loginPedagang(LoginRequest $request)
     {
         $request->validated();
 
@@ -112,9 +112,9 @@ class UserController extends Controller
             ->where('role', 'pedagang')
             ->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return response([
-                'message' => 'Email or Password Is Invalid'
+                'message' => 'Email or Password Is Invalid',
             ], 409);
         }
 
@@ -122,7 +122,7 @@ class UserController extends Controller
 
         return response([
             'data' => $user,
-            'token' => $token
+            'token' => $token,
         ], 200);
     }
 
@@ -131,7 +131,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         return response([
-            'data' => $user
+            'data' => $user,
         ], 200);
     }
 
@@ -145,16 +145,16 @@ class UserController extends Controller
         ]);
 
         return response([
-            'data' => $user
+            'data' => $user,
         ], 200);
     }
 
-    public function logout() 
+    public function logout()
     {
         auth()->user()->tokens()->delete();
 
         return [
-            'message' => 'Logged out'
+            'message' => 'Logged out',
         ];
     }
 }

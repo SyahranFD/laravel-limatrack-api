@@ -14,7 +14,7 @@ class CartItem extends Model
         'cart_id',
         'jajanan_id',
         'jumlah',
-        'total_harga'
+        'total_harga',
     ];
 
     public function cart()

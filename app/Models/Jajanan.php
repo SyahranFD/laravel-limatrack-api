@@ -17,7 +17,7 @@ class Jajanan extends Model
         'harga',
         'image',
         'tersedia',
-        'kategori'
+        'kategori',
     ];
 
     public function pedagang()

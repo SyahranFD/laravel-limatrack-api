@@ -19,8 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::prefix('/users')->group(function() 
-{
+Route::prefix('/users')->group(function () {
     Route::post('/register', [UserController::class, 'register']);
     Route::post('/register-customer', [UserController::class, 'registerCustomer']);
     Route::post('/login-customer', [UserController::class, 'loginCustomer']);

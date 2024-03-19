@@ -15,7 +15,7 @@ class Rating extends Model
         'pedagang_id',
         'order_id',
         'rating',
-        'komentar'
+        'komentar',
     ];
 
     public function user()

@@ -12,6 +12,6 @@ class Otp extends Model
     protected $fillable = [
         'id',
         'email',
-        'otp'
+        'otp',
     ];
 }

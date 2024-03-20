@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('role');
-            $table->boolean('verified_email')->default(false);
+            $table->boolean('verified_email')->default(0);
             $table->string('profile_picture')->nullable()->default(null);
             // $table->timestamp('email_verified_at')->nullable();
             // $table->rememberToken();

@@ -25,6 +25,7 @@ class RegisterRequest extends FormRequest
             'nama_lengkap' => 'required|max:255',
             'email' => 'required|email|max:255',
             'password' => 'required|min:8',
+            'otp' => 'required|numeric',
         ];
     }
 }

@@ -26,6 +26,7 @@ Route::prefix('/users')->group(function () {
     Route::post('/login-customer', [UserController::class, 'loginCustomer']);
     Route::post('/register-pedagang', [UserController::class, 'registerPedagang']);
     Route::post('/login-pedagang', [UserController::class, 'loginPedagang']);
+
     Route::get('/show', [UserController::class, 'show'])->middleware('auth:sanctum');
     Route::put('/edit', [UserController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
@@ -34,6 +35,9 @@ Route::prefix('/users')->group(function () {
 Route::prefix('/pedagang')->group(function () {
     Route::post('/store', [PedagangController::class, 'store'])->middleware('auth:sanctum');
     Route::put('/update', [PedagangController::class, 'update'])->middleware('auth:sanctum');
+    Route::put('/update-buka', [PedagangController::class, 'updateBuka'])->middleware('auth:sanctum');
     Route::get('/show', [PedagangController::class, 'show'])->middleware('auth:sanctum');
     Route::delete('/delete', [PedagangController::class, 'delete'])->middleware('auth:sanctum');
+
+    Route::put('/update-sertifikasi', [PedagangController::class, 'updateSertifikasi']);
 });

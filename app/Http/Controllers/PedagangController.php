@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PedagangRequest;
+use App\Models\Jajanan;
 use Illuminate\Support\Str;
 use App\Models\Pedagang;
 use Illuminate\Http\Request;
@@ -92,5 +93,33 @@ class PedagangController extends Controller
         ], 200);
     }
 
+    public function show()
+    {
+        $user = auth()->user();
+
+        $pedagang = Pedagang::whereBelongsTo($user)->with('jajanan')->first();
+
+        return response([
+            'data' => $pedagang,
+        ], 200);
     
+    }
+
+    public function showById($id)
+    {
+        $pedagang = Pedagang::where('id', $id)->with('jajanan')->first();
+
+        return response([
+            'data' => $pedagang,
+        ], 200);
+    }
+
+    public function showAll()
+    {
+        $pedagang = Pedagang::with('jajanan')->get();
+
+        return response([
+            'data' => $pedagang
+        ], 200);
+    }
 }

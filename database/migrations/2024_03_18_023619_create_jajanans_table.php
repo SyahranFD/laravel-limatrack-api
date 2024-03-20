@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('deskripsi');
             $table->float('harga');
-            $table->string('image');
-            $table->boolean('tersedia');
+            $table->string('image')->nullable()->default(null);
+            $table->boolean('tersedia')->default(true);
             $table->string('kategori');
             $table->timestamps();
 

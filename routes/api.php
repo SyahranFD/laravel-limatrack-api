@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JajananController;
 use App\Http\Controllers\PedagangController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -37,7 +38,10 @@ Route::prefix('/pedagang')->group(function () {
     Route::put('/update', [PedagangController::class, 'update'])->middleware('auth:sanctum');
     Route::put('/update-buka', [PedagangController::class, 'updateBuka'])->middleware('auth:sanctum');
     Route::get('/show', [PedagangController::class, 'show'])->middleware('auth:sanctum');
-    Route::delete('/delete', [PedagangController::class, 'delete'])->middleware('auth:sanctum');
+    Route::get('/show/{id}', [PedagangController::class, 'showById'])->middleware('auth:sanctum');
+    Route::get('/show-all', [PedagangController::class, 'showAll'])->middleware('auth:sanctum');
 
-    Route::put('/update-sertifikasi', [PedagangController::class, 'updateSertifikasi']);
+    Route::put('/{id}/update-sertifikasi', [PedagangController::class, 'updateSertifikasi']);
+
+    Route::post('/{pedagangId}/jajanan', [JajananController::class, 'store'])->middleware('auth:sanctum');
 });

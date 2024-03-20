@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Pedagang;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -142,6 +143,10 @@ class UserController extends Controller
         $user->update([
             'nama_lengkap' => $request->nama_lengkap,
             'profile_picture' => $request->profile_picture,
+        ]);
+
+        Pedagang::where('user_id', $user->id)->update([
+            'nama_pedagang' => $request->nama_lengkap,
         ]);
 
         return response([

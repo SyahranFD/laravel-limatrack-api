@@ -55,7 +55,7 @@ class PedagangController extends Controller
         $pedagang = Pedagang::whereBelongsTo($user)->first();
 
         if ($request->hasFile('banner')) {
-            Storage::delete($pedagang->banner);
+            Storage::delete('public/'.$pedagang->banner);
 
             $imageName = time().'.'.$request->banner->extension();  
             $uploadedImage = $request->banner->storeAs('public/banner', $imageName);

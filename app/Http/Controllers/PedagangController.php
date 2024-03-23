@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PedagangRequest;
 use App\Models\Jajanan;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Pedagang;
 use Illuminate\Http\Request;
@@ -16,21 +17,33 @@ class PedagangController extends Controller
 
         $user = auth()->user();
 
-        $pedagangData = [
-            'id' => 'pedagang-'. Str::random(10),
-            'user_id' => $user->id,
-            'nama_pedagang' => $user->nama_lengkap,
-            'nama_warung' => $request->nama_warung,
-            'jam_buka' => $request->jam_buka,
-            'jam_tutup' => $request->jam_tutup,
-            'daerah_dagang' => $request->daerah_dagang
-        ];
+        if ($request->hasFile('banner')) {
+            $imageName = time().'.'.$request->banner->extension();  
+            $uploadedImage = $request->banner->storeAs('public/banner', $imageName);
+            $imagePath = 'banner/' . $imageName;
 
-        $pedagang = Pedagang::create($pedagangData);
+            $pedagangData = [
+                'id' => 'pedagang-'. Str::random(10),
+                'user_id' => $user->id,
+                'nama_pedagang' => $user->nama_lengkap,
+                'nama_warung' => $request->nama_warung,
+                'banner' => $imagePath,
+                'jam_buka' => $request->jam_buka,
+                'jam_tutup' => $request->jam_tutup,
+                'daerah_dagang' => $request->daerah_dagang
+            ];
 
-        return response([
-            'data' => $pedagang,
-        ], 201);
+            $pedagang = Pedagang::create($pedagangData);
+
+            return response([
+                'data' => $pedagang,
+            ], 201);
+
+        } else {
+            return response([
+                'error' => 'No file found for banner',
+            ], 400);
+        }
     }
 
     public function update(PedagangRequest $request)
@@ -41,19 +54,43 @@ class PedagangController extends Controller
 
         $pedagang = Pedagang::whereBelongsTo($user)->first();
 
-        $pedagang->update([
-            'nama_warung' => $request->nama_warung,
-            'jam_buka' => $request->jam_buka,
-            'jam_tutup' => $request->jam_tutup,
-            'daerah_dagang' => $request->daerah_dagang
-        ]);
+        if ($request->hasFile('banner')) {
+            Storage::delete($pedagang->banner);
 
-        return response([
-            'data' => $pedagang,
-        ], 200);
+            $imageName = time().'.'.$request->banner->extension();  
+            $uploadedImage = $request->banner->storeAs('public/banner', $imageName);
+            $imagePath = 'banner/' . $imageName;
+
+            $pedagangData = [
+                'nama_warung' => $request->nama_warung,
+                'banner' => $imagePath,
+                'jam_buka' => $request->jam_buka,
+                'jam_tutup' => $request->jam_tutup,
+                'daerah_dagang' => $request->daerah_dagang
+            ];
+
+            $pedagang->update($pedagangData);
+
+            return response([
+                'data' => $pedagang,
+            ], 201);
+
+        } else {
+            $pedagang->update([
+                'nama_warung' => $request->nama_warung,
+                'jam_buka' => $request->jam_buka,
+                'jam_tutup' => $request->jam_tutup,
+                'daerah_dagang' => $request->daerah_dagang,
+                'banner' => $request->banner,
+            ]);
+
+            return response([
+                'data' => $pedagang,
+            ], 200);
+        }
     }
 
-    public function updateBuka(Request $request)
+    public function updateBuka()
     {
         $user = auth()->user();
 

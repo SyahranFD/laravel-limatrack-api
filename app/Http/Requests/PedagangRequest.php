@@ -23,7 +23,7 @@ class PedagangRequest extends FormRequest
     {
         return [
             'nama_warung' => 'required|max:255',
-            // 'image' => 'required|image',
+            'banner' => 'required|max:2048',
             'jam_buka' => 'required|max:255',
             'jam_tutup' => 'required|max:255',
             'daerah_dagang' => 'required|max:255',

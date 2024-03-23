@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Pedagang;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::create([
+            'id' => 'user-'.fake()->uuid(),
+            'nama_lengkap' => 'Rafa Syahran',
+            'email' => 'fadhilrafa1@gmail.com',
+            'password' => Hash::make('rafapass'),
+            'role' => 'customer',
+        ]);
+
         User::factory()
             ->has(
                 Pedagang::factory()
@@ -21,7 +30,7 @@ class DatabaseSeeder extends Seeder
                                 return [
                                     'nama_warung' => 'Siomay Pak Somad',
                                     'nama_pedagang' => $user->nama_lengkap,
-                                    // 'image' => 'https://via.placeholder.com/150',
+                                    'banner' => 'https://kuninganmass.com/wp-content/uploads/2021/09/IMG-20210909-WA0056.jpg',
                                     'latitude' => $user->latitude,
                                     'longitude' => $user->longitude,
                                 ];

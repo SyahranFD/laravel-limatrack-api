@@ -18,7 +18,7 @@ class Pedagang extends Model
         'user_id',
         'nama_warung',
         'nama_pedagang',
-        'image',
+        'banner',
         'buka',
         'jam_buka',
         'jam_tutup',

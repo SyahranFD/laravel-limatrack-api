@@ -40,7 +40,7 @@ Route::prefix('/users')->group(function () {
 
 Route::prefix('/pedagang')->group(function () {
     Route::post('/store', [PedagangController::class, 'store'])->middleware('auth:sanctum');
-    Route::put('/update', [PedagangController::class, 'update'])->middleware('auth:sanctum');
+    Route::post('/update', [PedagangController::class, 'update'])->middleware('auth:sanctum');
     Route::put('/update-buka', [PedagangController::class, 'updateBuka'])->middleware('auth:sanctum');
     Route::get('/show', [PedagangController::class, 'show'])->middleware('auth:sanctum');
     Route::get('/show/{id}', [PedagangController::class, 'showById'])->middleware('auth:sanctum');

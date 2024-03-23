@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('nama_warung');
             $table->string('nama_pedagang');
-            $table->string('image')->nullable()->default(null);
+            $table->string('banner')->nullable()->default(null);
             $table->boolean('buka')->default(false);
             $table->string('jam_buka');
             $table->string('jam_tutup');

@@ -35,6 +35,7 @@ Route::prefix('/users')->group(function () {
     Route::get('/show', [UserController::class, 'show'])->middleware('auth:sanctum');
     Route::put('/update', [UserController::class, 'update'])->middleware('auth:sanctum');
     Route::delete('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+    Route::put('/location', [UserController::class, 'updateLocation'])->middleware('auth:sanctum');
 });
 
 Route::prefix('/pedagang')->group(function () {

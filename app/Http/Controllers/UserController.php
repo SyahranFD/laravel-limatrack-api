@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Otp;
 use App\Models\Pedagang;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,12 +26,22 @@ class UserController extends Controller
             ], 409);
         }
 
+        $checkOtp = Otp::where('email', $request->email)
+            ->where('otp', $request->otp)
+            ->first();
+        if (!$checkOtp) {
+            return response([
+                'message' => 'OTP is invalid',
+            ], 409);
+        }
+
         $userData = [
             'id' => 'user-'.Str::random(10),
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'customer',
+            'otp' => $request->otp,
         ];
 
         $checkIdExist = User::where('id', $userData['id'])->first();
@@ -161,5 +172,29 @@ class UserController extends Controller
         return [
             'message' => 'Logged out',
         ];
+    }
+
+    public function updateLocation(Request $request)
+    {
+        $user = auth()->user();
+
+        $user->update([
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        $pedagang = Pedagang::where('user_id', $user->id)
+                    ->first();
+
+        if($user->role == 'pedagang') {
+            $pedagang->update([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
+        }
+
+        return response([
+            'data' => $user,
+        ], 200);
     }
 }

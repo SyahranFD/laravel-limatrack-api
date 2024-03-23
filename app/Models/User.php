@@ -29,6 +29,8 @@ class User extends Authenticatable
         'role',
         'verified_email',
         'profile_picture',
+        'latitude',
+        'longitude',
     ];
 
     /**

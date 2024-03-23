@@ -26,7 +26,6 @@ Route::post('/otp', [OtpController::class, 'sendOtp']);
 Route::post('/otp/verify', [OtpController::class, 'verifyOtp']);
 
 Route::prefix('/users')->group(function () {
-    Route::post('/register', [UserController::class, 'register']);
     Route::post('/register-customer', [UserController::class, 'registerCustomer']);
     Route::post('/login-customer', [UserController::class, 'loginCustomer']);
     Route::post('/register-pedagang', [UserController::class, 'registerPedagang']);
@@ -36,6 +35,7 @@ Route::prefix('/users')->group(function () {
     Route::put('/update', [UserController::class, 'update'])->middleware('auth:sanctum');
     Route::delete('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
     Route::put('/location', [UserController::class, 'updateLocation'])->middleware('auth:sanctum');
+    Route::post('/update-profile-picture', [UserController::class, 'updateProfilePicture'])->middleware('auth:sanctum');
 });
 
 Route::prefix('/pedagang')->group(function () {

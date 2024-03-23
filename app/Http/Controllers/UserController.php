@@ -197,4 +197,27 @@ class UserController extends Controller
             'data' => $user,
         ], 200);
     }
+
+    public function updateProfilePicture(Request $request)
+    {
+        $user = auth()->user();
+    
+        if ($request->hasFile('profile_picture')) {
+            $imageName = time().'.'.$request->profile_picture->extension();  
+            $uploadedImage = $request->profile_picture->storeAs('public/profile_picture', $imageName);
+            $imagePath = 'profile_picture/' . $imageName;
+
+            $user->update([
+                'profile_picture' => $imagePath,
+            ]);
+
+            return response([
+                'data' => $user,
+            ], 200);
+        } else {
+            return response([
+                'error' => 'No file found for profile_picture',
+            ], 400);
+        }
+    }
 }

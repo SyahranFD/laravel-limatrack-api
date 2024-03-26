@@ -21,7 +21,7 @@ class PedagangController extends Controller
             $imagePath = 'banner/'.$imageName;
 
             $pedagangData = [
-                'id' => 'pedagang-'.Str::random(10),
+                'id' => 'pedagang-'.Str::uuid(),
                 'user_id' => $user->id,
                 'nama_pedagang' => $user->nama_lengkap,
                 'nama_warung' => $request->nama_warung,

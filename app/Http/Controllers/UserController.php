@@ -36,7 +36,7 @@ class UserController extends Controller
         }
 
         $userData = [
-            'id' => 'user-'.Str::random(10),
+            'id' => 'user-'.Str::uuid(),
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -95,7 +95,7 @@ class UserController extends Controller
         }
 
         $userData = [
-            'id' => 'user-'.uniqid(),
+            'id' => 'user-'.Str::uuid(),
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => Hash::make($request->password),

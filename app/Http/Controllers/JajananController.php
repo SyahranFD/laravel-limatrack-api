@@ -15,7 +15,7 @@ class JajananController extends Controller
         auth()->user();
 
         $jajananData = [
-            'id' => 'jajanan-'.Str::random(10),
+            'id' => 'jajanan-'.Str::uuid(),
             'pedagang_id' => $pedagangId,
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,

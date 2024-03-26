@@ -6,6 +6,7 @@ use App\Mail\VerifyEmail;
 use App\Models\Otp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class OtpController extends Controller
 {
@@ -22,7 +23,7 @@ class OtpController extends Controller
         Mail::to($request->email)->send(new VerifyEmail($otp));
 
         Otp::create([
-            'id' => 'otp-'.uniqid(),
+            'id' => 'otp-'.Str::uuid(),
             'email' => $request->email,
             'otp' => $otp,
         ]);

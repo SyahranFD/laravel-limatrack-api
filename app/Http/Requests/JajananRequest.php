@@ -25,7 +25,7 @@ class JajananRequest extends FormRequest
             'nama' => 'required|max:255',
             'deskripsi' => 'required|max:255',
             'harga' => 'required|numeric',
-            // 'image' => 'required|image',
+            'image' => 'required|image',
             'kategori' => 'required|max:255',
         ];
     }

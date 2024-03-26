@@ -17,7 +17,7 @@ class PedagangController extends Controller
 
         if ($request->hasFile('banner')) {
             $imageName = time().'.'.$request->banner->extension();
-            $uploadedImage = $request->banner->storeAs('public/banner', $imageName);
+            $uploadedImage = $request->banner->storeAs('public/banner-pedagang', $imageName);
             $imagePath = 'banner/'.$imageName;
 
             $pedagangData = [

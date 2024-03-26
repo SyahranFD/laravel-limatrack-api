@@ -20,16 +20,14 @@ class JajananController extends Controller
             $uploadedImage = $request->image->storeAs('public/jajanan', $imageName);
             $imagePath = 'jajanan/'.$imageName;
 
-            $jajananData = [
+            $jajanan = Jajanan::update([
                 'id' => 'jajanan-'.Str::uuid(),
                 'pedagang_id' => $pedagangId,
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
                 'harga' => $request->harga,
                 'image' => $imagePath,
-            ];
-
-            $jajanan = Jajanan::create($jajananData);
+            ]);
 
             return response([
                 'data' => $jajanan,
@@ -72,9 +70,18 @@ class JajananController extends Controller
             ], 201);
 
         } else {
+            $jajanan->update([
+                'pedagang_id' => $pedagangId,
+                'nama' => $request->nama,
+                'deskripsi' => $request->deskripsi,
+                'harga' => $request->harga,
+                'image' => $request->image,
+                'kategori' => $request->kategori,
+            ]);
+
             return response([
-                'error' => 'No file found for image',
-            ], 400);
+                'data' => $jajanan,
+            ], 201);
         }
     }
 

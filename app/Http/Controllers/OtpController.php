@@ -32,28 +32,4 @@ class OtpController extends Controller
             'message' => 'Otp has been sent to your email',
         ], 200);
     }
-
-    public function verifyOtp(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|max:255',
-            'otp' => 'required|numeric',
-        ]);
-
-        $otp = Otp::where('email', $request->email)
-            ->where('otp', $request->otp)
-            ->first();
-
-        if (! $otp) {
-            return response([
-                'message' => 'Otp is invalid',
-            ], 409);
-        }
-
-        $otp->delete();
-
-        return response([
-            'message' => 'Otp is valid',
-        ], 200);
-    }
 }

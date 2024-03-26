@@ -20,7 +20,7 @@ class PedagangController extends Controller
             $uploadedImage = $request->banner->storeAs('public/banner-pedagang', $imageName);
             $imagePath = 'banner/'.$imageName;
 
-            $pedagangData = [
+            $pedagang = Pedagang::create([
                 'id' => 'pedagang-'.Str::uuid(),
                 'user_id' => $user->id,
                 'nama_pedagang' => $user->nama_lengkap,
@@ -29,9 +29,7 @@ class PedagangController extends Controller
                 'jam_buka' => $request->jam_buka,
                 'jam_tutup' => $request->jam_tutup,
                 'daerah_dagang' => $request->daerah_dagang,
-            ];
-
-            $pedagang = Pedagang::create($pedagangData);
+            ]);
 
             return response([
                 'data' => $pedagang,
@@ -59,15 +57,13 @@ class PedagangController extends Controller
             $uploadedImage = $request->banner->storeAs('public/banner', $imageName);
             $imagePath = 'banner/'.$imageName;
 
-            $pedagangData = [
+            $pedagang->update([
                 'nama_warung' => $request->nama_warung,
                 'banner' => $imagePath,
                 'jam_buka' => $request->jam_buka,
                 'jam_tutup' => $request->jam_tutup,
                 'daerah_dagang' => $request->daerah_dagang,
-            ];
-
-            $pedagang->update($pedagangData);
+            ]);
 
             return response([
                 'data' => $pedagang,

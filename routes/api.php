@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImageVerifikasiController;
 use App\Http\Controllers\JajananController;
 use App\Http\Controllers\OtpController;
 use App\Http\Controllers\PedagangController;
@@ -52,4 +53,10 @@ Route::prefix('/pedagang')->group(function () {
     Route::put('/{pedagangId}/jajanan/{jajananId}', [JajananController::class, 'update'])->middleware('auth:sanctum');
     Route::put('/{pedagangId}/jajanan-tersedia/{jajananId}', [JajananController::class, 'updateTersedia'])->middleware('auth:sanctum');
     Route::delete('/{pedagangId}/jajanan/{jajananId}', [JajananController::class, 'delete'])->middleware('auth:sanctum');
+});
+
+Route::prefix('/image-verifikasi')->group(function () {
+    Route::post('/store', [ImageVerifikasiController::class, 'store'])->middleware('auth:sanctum');
+    Route::get('/show-all', [ImageVerifikasiController::class, 'showAll']);
+    Route::put('/delete', [ImageVerifikasiController::class, 'delete']);
 });

@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('image_verifikasi_pedagangs', function (Blueprint $table) {
+        Schema::create('image_verifikasis', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('pedagang_id');
-            $table->string('image');
+            $table->string('user_id');
+            $table->string('image_1');
+            $table->string('image_2');
+            $table->string('image_3');
+            $table->string('image_4');
             $table->timestamps();
 
-            $table->foreign('pedagang_id')->references('id')->on('pedagangs');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('image_verifikasi_pedagangs');
+        Schema::dropIfExists('image_verifikasis');
     }
 };

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ImageVerifikasiPedagang extends Model
+class ImageVerifikasi extends Model
 {
     use HasFactory;
 
@@ -14,12 +14,15 @@ class ImageVerifikasiPedagang extends Model
 
     protected $fillable = [
         'id',
-        'pedagang_id',
-        'image',
+        'user_id',
+        'image_1',
+        'image_2',
+        'image_3',
+        'image_4',
     ];
 
-    public function pedagang(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Pedagang::class);
+        return $this->belongsTo(User::class);
     }
 }

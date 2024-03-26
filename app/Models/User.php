@@ -43,6 +43,11 @@ class User extends Authenticatable
         // 'remember_token',
     ];
 
+    public function verifikasiImage(): HasOne
+    {
+        return $this->hasOne(ImageVerifikasi::class);
+    }
+
     public function pedagang(): HasOne
     {
         return $this->hasOne(Pedagang::class);

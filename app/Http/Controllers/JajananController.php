@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\JajananRequest;
 use App\Models\Jajanan;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class JajananController extends Controller
 {
@@ -15,7 +15,7 @@ class JajananController extends Controller
         auth()->user();
 
         $jajananData = [
-            'id' => 'jajanan-'. Str::random(10),
+            'id' => 'jajanan-'.Str::random(10),
             'pedagang_id' => $pedagangId,
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
@@ -61,7 +61,7 @@ class JajananController extends Controller
             ->where('id', $jajananId)
             ->first();
 
-        if($jajanan->tersedia == false) {
+        if ($jajanan->tersedia == false) {
             $jajanan->update([
                 'tersedia' => 1,
             ]);

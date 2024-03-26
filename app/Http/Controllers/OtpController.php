@@ -43,7 +43,7 @@ class OtpController extends Controller
             ->where('otp', $request->otp)
             ->first();
 
-        if (!$otp) {
+        if (! $otp) {
             return response([
                 'message' => 'Otp is invalid',
             ], 409);

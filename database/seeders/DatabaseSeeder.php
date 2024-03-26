@@ -26,20 +26,20 @@ class DatabaseSeeder extends Seeder
         User::factory()
             ->has(
                 Pedagang::factory()
-                            ->state(function (array $attributes, User $user) {
-                                return [
-                                    'nama_warung' => 'Siomay Pak Somad',
-                                    'nama_pedagang' => $user->nama_lengkap,
-                                    'banner' => 'https://kuninganmass.com/wp-content/uploads/2021/09/IMG-20210909-WA0056.jpg',
-                                    'latitude' => $user->latitude,
-                                    'longitude' => $user->longitude,
-                                ];
-                            })
+                    ->state(function (array $attributes, User $user) {
+                        return [
+                            'nama_warung' => 'Siomay Pak Somad',
+                            'nama_pedagang' => $user->nama_lengkap,
+                            'banner' => 'https://kuninganmass.com/wp-content/uploads/2021/09/IMG-20210909-WA0056.jpg',
+                            'latitude' => $user->latitude,
+                            'longitude' => $user->longitude,
+                        ];
+                    })
             )
             ->create([
                 'role' => 'pedagang',
                 'latitude' => '-6.75392669750156',
-                'longitude' => '110.84286271712118'
+                'longitude' => '110.84286271712118',
             ]);
     }
 }

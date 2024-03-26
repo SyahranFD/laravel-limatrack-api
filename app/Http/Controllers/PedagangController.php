@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PedagangRequest;
-use App\Models\Jajanan;
+use App\Models\Pedagang;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Models\Pedagang;
-use Illuminate\Http\Request;
 
 class PedagangController extends Controller
 {
@@ -18,19 +16,19 @@ class PedagangController extends Controller
         $user = auth()->user();
 
         if ($request->hasFile('banner')) {
-            $imageName = time().'.'.$request->banner->extension();  
+            $imageName = time().'.'.$request->banner->extension();
             $uploadedImage = $request->banner->storeAs('public/banner', $imageName);
-            $imagePath = 'banner/' . $imageName;
+            $imagePath = 'banner/'.$imageName;
 
             $pedagangData = [
-                'id' => 'pedagang-'. Str::random(10),
+                'id' => 'pedagang-'.Str::random(10),
                 'user_id' => $user->id,
                 'nama_pedagang' => $user->nama_lengkap,
                 'nama_warung' => $request->nama_warung,
                 'banner' => $imagePath,
                 'jam_buka' => $request->jam_buka,
                 'jam_tutup' => $request->jam_tutup,
-                'daerah_dagang' => $request->daerah_dagang
+                'daerah_dagang' => $request->daerah_dagang,
             ];
 
             $pedagang = Pedagang::create($pedagangData);
@@ -57,16 +55,16 @@ class PedagangController extends Controller
         if ($request->hasFile('banner')) {
             Storage::delete('public/'.$pedagang->banner);
 
-            $imageName = time().'.'.$request->banner->extension();  
+            $imageName = time().'.'.$request->banner->extension();
             $uploadedImage = $request->banner->storeAs('public/banner', $imageName);
-            $imagePath = 'banner/' . $imageName;
+            $imagePath = 'banner/'.$imageName;
 
             $pedagangData = [
                 'nama_warung' => $request->nama_warung,
                 'banner' => $imagePath,
                 'jam_buka' => $request->jam_buka,
                 'jam_tutup' => $request->jam_tutup,
-                'daerah_dagang' => $request->daerah_dagang
+                'daerah_dagang' => $request->daerah_dagang,
             ];
 
             $pedagang->update($pedagangData);
@@ -96,13 +94,13 @@ class PedagangController extends Controller
 
         $pedagang = Pedagang::whereBelongsTo($user)->first();
 
-        if($pedagang->buka == false) {
+        if ($pedagang->buka == false) {
             $pedagang->update([
-                'buka' => true
+                'buka' => true,
             ]);
         } else {
             $pedagang->update([
-                'buka' => false
+                'buka' => false,
             ]);
         }
 
@@ -115,13 +113,13 @@ class PedagangController extends Controller
     {
         $pedagang = Pedagang::where('id', $id)->first();
 
-        if($pedagang->sertifikasi_halal == false) {
+        if ($pedagang->sertifikasi_halal == false) {
             $pedagang->update([
-                'sertifikasi_halal' => true
+                'sertifikasi_halal' => true,
             ]);
         } else {
             $pedagang->update([
-                'sertifikasi_halal' => false
+                'sertifikasi_halal' => false,
             ]);
         }
 
@@ -139,7 +137,7 @@ class PedagangController extends Controller
         return response([
             'data' => $pedagang,
         ], 200);
-    
+
     }
 
     public function showById($id)
@@ -156,7 +154,7 @@ class PedagangController extends Controller
         $pedagang = Pedagang::with('jajanan')->get();
 
         return response([
-            'data' => $pedagang
+            'data' => $pedagang,
         ], 200);
     }
 }

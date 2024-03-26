@@ -29,7 +29,7 @@ class UserController extends Controller
         $checkOtp = Otp::where('email', $request->email)
             ->where('otp', $request->otp)
             ->first();
-        if (!$checkOtp) {
+        if (! $checkOtp) {
             return response([
                 'message' => 'OTP is invalid',
             ], 409);
@@ -184,9 +184,9 @@ class UserController extends Controller
         ]);
 
         $pedagang = Pedagang::where('user_id', $user->id)
-                    ->first();
+            ->first();
 
-        if($user->role == 'pedagang') {
+        if ($user->role == 'pedagang') {
             $pedagang->update([
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
@@ -201,11 +201,11 @@ class UserController extends Controller
     public function updateProfilePicture(Request $request)
     {
         $user = auth()->user();
-    
+
         if ($request->hasFile('profile_picture')) {
-            $imageName = time().'.'.$request->profile_picture->extension();  
+            $imageName = time().'.'.$request->profile_picture->extension();
             $uploadedImage = $request->profile_picture->storeAs('public/profile_picture', $imageName);
-            $imagePath = 'profile_picture/' . $imageName;
+            $imagePath = 'profile_picture/'.$imageName;
 
             $user->update([
                 'profile_picture' => $imagePath,

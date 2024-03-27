@@ -56,6 +56,7 @@ Route::prefix('/pedagang')->group(function () {
 
     Route::post('/{pedagangId}/jajanan/{jajananId}/cart', [CartController::class, 'store'])->middleware('auth:sanctum');
     Route::put('/{pedagangId}/jajanan/{jajananId}/cart/{cartId}', [CartController::class, 'update'])->middleware('auth:sanctum');
+    Route::get('/{pedagangId}/jajanan/{jajananId}/cart/show-current', [CartController::class, 'showAll'])->middleware('auth:sanctum');
 });
 
 Route::prefix('/image-verifikasi')->group(function () {

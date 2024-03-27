@@ -37,20 +37,33 @@ class CartController extends Controller
             ->where('id', $cartId)
             ->first();
 
+        $cart->update([
+            'jumlah' => $request->jumlah,
+            'total_harga' => $request->total_harga,
+        ]);
+
         if($cart->jumlah == 0) {
             $cart->delete();
             return response([
                 'message' => 'Cart deleted',
             ], 200);
         }
-        
-        $cart->update([
-            'jumlah' => $request->jumlah,
-            'total_harga' => $request->total_harga,
-        ]);
 
         return response([
             'data' => $cart,
+        ], 200);
+    }
+
+    public function showAll($pedagangId)
+    {
+        $user = auth()->user();
+
+        $carts = Cart::where('user_id', $user->id)
+            ->where('pedagang_id', $pedagangId)
+            ->get();
+
+        return response([
+            'data' => $carts,
         ], 200);
     }
 }

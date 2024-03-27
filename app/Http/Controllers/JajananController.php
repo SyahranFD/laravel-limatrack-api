@@ -20,12 +20,13 @@ class JajananController extends Controller
             $uploadedImage = $request->image->storeAs('public/jajanan', $imageName);
             $imagePath = 'jajanan/'.$imageName;
 
-            $jajanan = Jajanan::update([
+            $jajanan = Jajanan::create([
                 'id' => 'jajanan-'.Str::uuid(),
                 'pedagang_id' => $pedagangId,
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
                 'harga' => $request->harga,
+                'kategori' => $request->kategori,
                 'image' => $imagePath,
             ]);
 

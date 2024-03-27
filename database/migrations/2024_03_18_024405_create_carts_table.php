@@ -15,10 +15,14 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('user_id');
             $table->string('pedagang_id');
+            $table->string('jajanan_id');
+            $table->integer('jumlah');
+            $table->integer('total_harga');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('pedagang_id')->references('id')->on('pedagangs');
+            $table->foreign('jajanan_id')->references('id')->on('jajanans');
         });
     }
 

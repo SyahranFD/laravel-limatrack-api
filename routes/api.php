@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ImageVerifikasiController;
 use App\Http\Controllers\JajananController;
 use App\Http\Controllers\OtpController;
@@ -24,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/otp', [OtpController::class, 'sendOtp']);
-Route::post('/otp/verify', [OtpController::class, 'verifyOtp']);
 
 Route::prefix('/users')->group(function () {
     Route::post('/register-customer', [UserController::class, 'registerCustomer']);
@@ -43,7 +43,7 @@ Route::prefix('/pedagang')->group(function () {
     Route::post('/store', [PedagangController::class, 'store'])->middleware('auth:sanctum');
     Route::post('/update', [PedagangController::class, 'update'])->middleware('auth:sanctum');
     Route::put('/update-buka', [PedagangController::class, 'updateBuka'])->middleware('auth:sanctum');
-    Route::get('/show', [PedagangController::class, 'show'])->middleware('auth:sanctum');
+    Route::get('/show-current', [PedagangController::class, 'show'])->middleware('auth:sanctum');
     Route::get('/show/{id}', [PedagangController::class, 'showById'])->middleware('auth:sanctum');
     Route::get('/show-all', [PedagangController::class, 'showAll'])->middleware('auth:sanctum');
 
@@ -53,6 +53,9 @@ Route::prefix('/pedagang')->group(function () {
     Route::put('/{pedagangId}/jajanan/{jajananId}', [JajananController::class, 'update'])->middleware('auth:sanctum');
     Route::put('/{pedagangId}/jajanan-tersedia/{jajananId}', [JajananController::class, 'updateTersedia'])->middleware('auth:sanctum');
     Route::delete('/{pedagangId}/jajanan/{jajananId}', [JajananController::class, 'delete'])->middleware('auth:sanctum');
+
+    Route::post('/{pedagangId}/jajanan/{jajananId}/cart', [CartController::class, 'store'])->middleware('auth:sanctum');
+    Route::put('/{pedagangId}/jajanan/{jajananId}/cart/{cartId}', [CartController::class, 'update'])->middleware('auth:sanctum');
 });
 
 Route::prefix('/image-verifikasi')->group(function () {

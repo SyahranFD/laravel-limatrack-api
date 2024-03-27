@@ -17,6 +17,9 @@ class Cart extends Model
         'id',
         'user_id',
         'pedagang_id',
+        'jajanan_id',
+        'jumlah',
+        'total_harga'
     ];
 
     public function user(): BelongsTo
@@ -29,8 +32,8 @@ class Cart extends Model
         return $this->belongsTo(Pedagang::class);
     }
 
-    public function cartItem(): HasMany
+    public function jajanan(): HasMany
     {
-        return $this->hasMany(CartItem::class);
+        return $this->hasMany(Jajanan::class);
     }
 }

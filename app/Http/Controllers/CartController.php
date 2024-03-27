@@ -31,11 +31,7 @@ class CartController extends Controller
     {
         $user = auth()->user();
 
-        $cart = Cart::where('user_id', $user->id)
-            ->where('pedagang_id', $pedagangId)
-            ->where('jajanan_id', $jajananId)
-            ->where('id', $cartId)
-            ->first();
+        $cart = Cart::where('id', $cartId)->first();
 
         $cart->update([
             'jumlah' => $request->jumlah,
@@ -58,9 +54,7 @@ class CartController extends Controller
     {
         $user = auth()->user();
 
-        $carts = Cart::where('user_id', $user->id)
-            ->where('pedagang_id', $pedagangId)
-            ->get();
+        $carts = Cart::where('user_id', $user->id)->get();
 
         return response([
             'data' => $carts,

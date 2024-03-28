@@ -15,30 +15,23 @@ class JajananController extends Controller
         $request->validated();
         auth()->user();
 
-        if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();
-            $uploadedImage = $request->image->storeAs('public/jajanan', $imageName);
-            $imagePath = 'jajanan/'.$imageName;
+        $imageName = time().'_'.Str::uuid().'.'.$request->image->extension();
+        $uploadedImage = $request->image->storeAs('public/jajanan', $imageName);
+        $imagePath = 'jajanan/'.$imageName;
 
-            $jajanan = Jajanan::create([
-                'id' => 'jajanan-'.Str::uuid(),
-                'pedagang_id' => $pedagangId,
-                'nama' => $request->nama,
-                'deskripsi' => $request->deskripsi,
-                'harga' => $request->harga,
-                'kategori' => $request->kategori,
-                'image' => $imagePath,
-            ]);
+        $jajanan = Jajanan::create([
+            'id' => 'jajanan-'.Str::uuid(),
+            'pedagang_id' => $pedagangId,
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga,
+            'kategori' => $request->kategori,
+            'image' => $imagePath,
+        ]);
 
-            return response([
-                'data' => $jajanan,
-            ], 201);
-
-        } else {
-            return response([
-                'error' => 'No file found for image',
-            ], 400);
-        }
+        return response([
+            'data' => $jajanan,
+        ], 201);
     }
 
     public function update(JajananRequest $request, $pedagangId, $jajananId)
@@ -53,7 +46,7 @@ class JajananController extends Controller
         if ($request->hasFile('image')) {
             Storage::delete('public/'.$jajanan->image);
 
-            $imageName = time().'.'.$request->image->extension();
+            $imageName = time().'_'.Str::uuid().'.'.$request->image->extension();
             $uploadedImage = $request->image->storeAs('public/jajanan', $imageName);
             $imagePath = 'jajanan/'.$imageName;
 

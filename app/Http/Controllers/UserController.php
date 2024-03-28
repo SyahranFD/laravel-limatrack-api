@@ -9,6 +9,7 @@ use App\Models\Pedagang;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -151,18 +152,40 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        $user->update([
-            'nama_lengkap' => $request->nama_lengkap,
-            'profile_picture' => $request->profile_picture,
-        ]);
+        if ($request->hasFile('profile_picture')) {
+            Storage::delete('public/'.$user->profile_picture);
 
-        Pedagang::where('user_id', $user->id)->update([
-            'nama_pedagang' => $request->nama_lengkap,
-        ]);
+            $imageName = time().'_'.Str::uuid().'.'.$request->profile_picture->extension();
+            $uploadedImage = $request->profile_picture->storeAs('public/profile_picture', $imageName);
+            $imagePath = 'profile_picture/'.$imageName;
 
-        return response([
-            'data' => $user,
-        ], 200);
+            $user->update([
+                'nama_lengkap' => $request->nama_lengkap,
+                'profile_picture' => $imagePath,
+            ]);
+
+            Pedagang::where('user_id', $user->id)->update([
+                'nama_pedagang' => $request->nama_lengkap,
+            ]);
+
+            return response([
+                'data' => $user,
+            ], 200);
+
+        } else {
+            $user->update([
+                'nama_lengkap' => $request->nama_lengkap,
+                'profile_picture' => $request->profile_picture,
+            ]);
+
+            Pedagang::where('user_id', $user->id)->update([
+                'nama_pedagang' => $request->nama_lengkap,
+            ]);
+
+            return response([
+                'data' => $user,
+            ], 200);
+        }
     }
 
     public function logout()

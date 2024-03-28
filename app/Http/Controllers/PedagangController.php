@@ -16,7 +16,7 @@ class PedagangController extends Controller
         $user = auth()->user();
 
         if ($request->hasFile('banner')) {
-            $imageName = time().'.'.$request->banner->extension();
+            $imageName = time().'_'.Str::uuid().'.'.$request->banner->extension();
             $uploadedImage = $request->banner->storeAs('public/banner-pedagang', $imageName);
             $imagePath = 'banner-pedagang/'.$imageName;
 
@@ -53,7 +53,7 @@ class PedagangController extends Controller
         if ($request->hasFile('banner')) {
             Storage::delete('public/'.$pedagang->banner);
 
-            $imageName = time().'.'.$request->banner->extension();
+            $imageName = time().'_'.Str::uuid().'.'.$request->banner->extension();
             $uploadedImage = $request->banner->storeAs('public/banner', $imageName);
             $imagePath = 'banner/'.$imageName;
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartRequest;
 use App\Models\Cart;
+use App\Models\Jajanan;
+use App\Models\Pedagang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -13,11 +15,14 @@ class CartController extends Controller
     {
         $user = auth()->user();
 
+        $nama_warung = Pedagang::where('id', $pedagangId)->first()->nama_warung;
+
         $cart = Cart::create([
             'id' => 'cart-'.Str::uuid(),
             'user_id' => $user->id,
             'pedagang_id' => $pedagangId,
             'jajanan_id' => $jajananId,
+            'nama_warung' => $nama_warung,
             'jumlah' => $request->jumlah,
             'total_harga' => $request->total_harga,
         ]);
@@ -50,14 +55,32 @@ class CartController extends Controller
         ], 200);
     }
 
-    public function showAll($pedagangId)
+    public function showCurrent()
     {
         $user = auth()->user();
 
         $carts = Cart::where('user_id', $user->id)->get();
+        $total_keseluruhan = $carts->sum('total_harga');
+
+        $responseBody = [];
+
+        foreach ($carts as $cart) {
+            $jajanan = Jajanan::where('id', $cart->jajanan_id)->first();
+
+            $responseBody[] = [
+                'id' => $cart->id,
+                'nama_warung' => $cart->nama_warung,
+                'nama_jajanan' => $jajanan->nama,
+                'harga' => $jajanan->harga,
+                'image' => $jajanan->image,
+                'jumlah' => $cart->jumlah,
+                'total_harga' => $cart->total_harga,
+            ];
+        }
 
         return response([
-            'data' => $carts,
+            'data' => $responseBody,
+            'total_keseluruhan' => $total_keseluruhan,
         ], 200);
     }
 }

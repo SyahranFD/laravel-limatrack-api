@@ -18,6 +18,7 @@ class Cart extends Model
         'user_id',
         'pedagang_id',
         'jajanan_id',
+        'nama_warung',
         'jumlah',
         'total_harga'
     ];

@@ -23,6 +23,14 @@ class DatabaseSeeder extends Seeder
             'role' => 'customer',
         ]);
 
+        User::create([
+            'id' => 'user-'.fake()->uuid(),
+            'nama_lengkap' => 'Rafa Syahran',
+            'email' => 'fadhilrafa1@gmail.com',
+            'password' => Hash::make('rafapass'),
+            'role' => 'pedagang',
+        ]);
+
         User::factory()
             ->has(
                 Pedagang::factory()

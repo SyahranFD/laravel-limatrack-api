@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('pedagang_id');
             $table->string('status');
             $table->string('metode_pembayaran');
+            $table->integer('total_keseluruhan');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

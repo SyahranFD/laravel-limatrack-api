@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('order_id');
+            $table->string('pedagang_id');
             $table->string('jajanan_id');
+            $table->string('nama_warung');
             $table->integer('jumlah');
             $table->integer('total_harga');
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('pedagang_id')->references('id')->on('pedagangs');
             $table->foreign('jajanan_id')->references('id')->on('jajanans');
         });
     }

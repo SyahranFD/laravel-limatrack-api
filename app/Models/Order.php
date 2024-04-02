@@ -19,6 +19,7 @@ class Order extends Model
         'pedagang_id',
         'status',
         'metode_pembayaran',
+        'total_keseluruhan'
     ];
 
     // belongsTo

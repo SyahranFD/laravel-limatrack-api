@@ -16,6 +16,7 @@ class OrderItem extends Model
         'id',
         'order_id',
         'jajanan_id',
+        'nama_warung',
         'jumlah',
         'total_harga',
     ];
@@ -23,6 +24,11 @@ class OrderItem extends Model
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function pedagang(): BelongsTo
+    {
+        return $this->belongsTo(Pedagang::class);
     }
 
     public function jajanan(): BelongsTo

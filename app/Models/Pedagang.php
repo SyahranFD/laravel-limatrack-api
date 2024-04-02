@@ -40,9 +40,9 @@ class Pedagang extends Model
         return $this->hasMany(Jajanan::class);
     }
 
-    public function imageVerifikasiPedagang(): HasMany
+    public function imageVerifikasi(): HasMany
     {
-        return $this->hasMany(ImageVerifikasiPedagang::class);
+        return $this->hasMany(ImageVerifikasi::class);
     }
 
     public function cart(): HasMany
@@ -53,6 +53,11 @@ class Pedagang extends Model
     public function order(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function orderItem(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
     }
 
     public function langganan(): HasMany

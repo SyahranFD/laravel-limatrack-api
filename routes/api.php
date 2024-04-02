@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ImageVerifikasiController;
 use App\Http\Controllers\JajananController;
+use App\Http\Controllers\LanggananController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OtpController;
 use App\Http\Controllers\PedagangController;
@@ -69,4 +70,10 @@ Route::prefix('/image-verifikasi')->group(function () {
 Route::prefix('/order')->group(function () {
     Route::post('/store/{pedagangId}/{cartId}', [OrderController::class, 'store'])->middleware('auth:sanctum');
     Route::get('/show-current', [OrderController::class, 'showCurrent'])->middleware('auth:sanctum');
+});
+
+Route::prefix('/langganan')->group(function () {
+    Route::post('/store', [LanggananController::class, 'store'])->middleware('auth:sanctum');
+    Route::get('/show-current', [LanggananController::class, 'showCurrent'])->middleware('auth:sanctum');
+    Route::delete('/delete/{pedagangId}', [LanggananController::class, 'delete'])->middleware('auth:sanctum');
 });

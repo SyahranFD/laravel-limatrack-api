@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'fadhilrafa1@gmail.com',
             'password' => Hash::make('rafapass'),
             'role' => 'customer',
+            'latitude' => '-6.753818894951011',
+            'longitude' => '110.84275218710701',
         ]);
 
         User::create([
@@ -29,6 +31,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'fadhilrafa1@gmail.com',
             'password' => Hash::make('rafapass'),
             'role' => 'pedagang',
+            'latitude' => '-6.754239742962566',
+            'longitude' => '110.84305125340968',
         ]);
 
         User::factory()

@@ -29,6 +29,8 @@ class PedagangController extends Controller
                 'jam_buka' => $request->jam_buka,
                 'jam_tutup' => $request->jam_tutup,
                 'daerah_dagang' => $request->daerah_dagang,
+                'latitude' => $user->latitude,
+                'longitude' => $user->longitude,
             ]);
 
             return response([
@@ -124,7 +126,7 @@ class PedagangController extends Controller
         ], 200);
     }
 
-    public function show()
+    public function showCurrent()
     {
         $user = auth()->user();
 
@@ -133,7 +135,6 @@ class PedagangController extends Controller
         return response([
             'data' => $pedagang,
         ], 200);
-
     }
 
     public function showById($id)
@@ -147,10 +148,45 @@ class PedagangController extends Controller
 
     public function showAll()
     {
-        $pedagang = Pedagang::with('jajanan')->get();
+        $user = auth()->user();
+
+        $pedagangs = Pedagang::get();
+
+        $responseBody = [];
+
+        foreach ($pedagangs as $pedagang) {
+            $theta = $user->longitude - $pedagang->longitude;
+            $dist = sin(deg2rad($user->latitude)) * sin(deg2rad($pedagang->latitude)) + cos(deg2rad($user->latitude)) * cos(deg2rad($pedagang->latitude)) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+            $jarak = ($miles * 1.609344);
+
+            if (is_nan($jarak)) {
+                $jarak = 0;
+            }
+
+            $jarakFormat = number_format($jarak, 2);
+
+            $responseBody[] = [
+                'id' => $pedagang->id,
+                'nama_warung' => $pedagang->nama_warung,
+                'nama_pedagang' => $pedagang->nama_pedagang,
+                'banner' => $pedagang->banner,
+                'buka' => $pedagang->buka,
+                'jam_buka' => $pedagang->jam_buka,
+                'jam_tutup' => $pedagang->jam_tutup,
+                'daerah_dagang' => $pedagang->daerah_dagang,
+                'average_rating' => $pedagang->average_rating,
+                'sertifikasi_halal' => $pedagang->sertifikasi_halal,
+                'latitude' => $pedagang->latitude,
+                'longitude' => $pedagang->longitude,
+                'jarak' => $jarakFormat,
+            ];
+        }
 
         return response([
-            'data' => $pedagang,
+            'data' => $responseBody,
         ], 200);
     }
 }

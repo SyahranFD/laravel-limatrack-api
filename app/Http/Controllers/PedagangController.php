@@ -168,11 +168,27 @@ class PedagangController extends Controller
         ], 200);
     }
 
-    public function showAll()
+    public function showAll(Request $request)
     {
         $user = auth()->user();
 
-        $pedagangs = Pedagang::with('jajanan')->get();
+        $search = $request->query('search');
+        $terdekat = $request->query('terdekat');
+        $rating = $request->query('rating');
+        $sertifikasiHalal = $request->query('sertifikasi_halal');
+
+        $pedagangs = Pedagang::with('jajanan')
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_warung', 'like', '%' . $search . '%')
+                    ->orWhere('nama_pedagang', 'like', '%' . $search . '%');
+            })
+            ->when($rating, function ($query) use ($rating) {
+                $query->where('average_rating', '>', $rating);
+            })
+            ->when($sertifikasiHalal, function ($query) use ($sertifikasiHalal) {
+                $query->where('sertifikasi_halal', true);
+            })
+            ->get();
 
         $responseBody = [];
 
@@ -195,6 +211,12 @@ class PedagangController extends Controller
                 'jarak' => $jarak,
                 'jajanan' => $pedagang->jajanan,
             ];
+        }
+
+        if ($terdekat == 'true') {
+            usort($responseBody, function ($a, $b) {
+                return $a['jarak'] <=> $b['jarak'];
+            });
         }
 
         return response([

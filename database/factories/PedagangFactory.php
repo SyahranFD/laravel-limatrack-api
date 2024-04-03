@@ -23,7 +23,7 @@ class PedagangFactory extends Factory
             'jam_tutup' => '17:00',
             'daerah_dagang' => 'Kudus',
             'average_rating' => fake()->randomFloat(1, 4.0, 5.0),
-            'sertifikasi_halal' => 1,
+            'sertifikasi_halal' => fake()->numberBetween(0, 1),
         ];
     }
 }

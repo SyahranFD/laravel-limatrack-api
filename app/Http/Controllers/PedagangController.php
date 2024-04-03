@@ -139,10 +139,42 @@ class PedagangController extends Controller
 
     public function showById($id)
     {
+        $user = auth()->user();
+
         $pedagang = Pedagang::where('id', $id)->with('jajanan')->first();
 
+        $theta = $user->longitude - $pedagang->longitude;
+        $dist = sin(deg2rad($user->latitude)) * sin(deg2rad($pedagang->latitude)) + cos(deg2rad($user->latitude)) * cos(deg2rad($pedagang->latitude)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $jarak = ($miles * 1.609344);
+
+        if (is_nan($jarak)) {
+            $jarak = 0;
+        }
+
+        $jarakFormat = number_format($jarak, 2) . ' km';
+
+        $responseBody = [
+            'id' => $pedagang->id,
+            'nama_warung' => $pedagang->nama_warung,
+            'nama_pedagang' => $pedagang->nama_pedagang,
+            'banner' => $pedagang->banner,
+            'buka' => $pedagang->buka,
+            'jam_buka' => $pedagang->jam_buka,
+            'jam_tutup' => $pedagang->jam_tutup,
+            'daerah_dagang' => $pedagang->daerah_dagang,
+            'average_rating' => $pedagang->average_rating,
+            'sertifikasi_halal' => $pedagang->sertifikasi_halal,
+            'latitude' => $pedagang->latitude,
+            'longitude' => $pedagang->longitude,
+            'jarak' => $jarakFormat,
+            'jajanan' => $pedagang->jajanan,
+        ];
+
         return response([
-            'data' => $pedagang,
+            'data' => $responseBody,
         ], 200);
     }
 
@@ -150,7 +182,7 @@ class PedagangController extends Controller
     {
         $user = auth()->user();
 
-        $pedagangs = Pedagang::get();
+        $pedagangs = Pedagang::with('jajanan')->get();
 
         $responseBody = [];
 
@@ -166,7 +198,7 @@ class PedagangController extends Controller
                 $jarak = 0;
             }
 
-            $jarakFormat = number_format($jarak, 2);
+            $jarakFormat = number_format($jarak, 2) . ' km';
 
             $responseBody[] = [
                 'id' => $pedagang->id,
@@ -182,6 +214,7 @@ class PedagangController extends Controller
                 'latitude' => $pedagang->latitude,
                 'longitude' => $pedagang->longitude,
                 'jarak' => $jarakFormat,
+                'jajanan' => $pedagang->jajanan,
             ];
         }
 

@@ -6,6 +6,7 @@ use App\Http\Requests\PedagangRequest;
 use App\Models\Pedagang;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class PedagangController extends Controller
 {
@@ -143,18 +144,7 @@ class PedagangController extends Controller
 
         $pedagang = Pedagang::where('id', $id)->with('jajanan')->first();
 
-        $theta = $user->longitude - $pedagang->longitude;
-        $dist = sin(deg2rad($user->latitude)) * sin(deg2rad($pedagang->latitude)) + cos(deg2rad($user->latitude)) * cos(deg2rad($pedagang->latitude)) * cos(deg2rad($theta));
-        $dist = acos($dist);
-        $dist = rad2deg($dist);
-        $miles = $dist * 60 * 1.1515;
-        $jarak = ($miles * 1.609344);
-
-        if (is_nan($jarak)) {
-            $jarak = 0;
-        }
-
-        $jarakFormat = number_format($jarak, 2) . ' km';
+        $jarak = $this->distance($user->latitude, $user->longitude, $pedagang->latitude, $pedagang->longitude);
 
         $responseBody = [
             'id' => $pedagang->id,
@@ -169,7 +159,7 @@ class PedagangController extends Controller
             'sertifikasi_halal' => $pedagang->sertifikasi_halal,
             'latitude' => $pedagang->latitude,
             'longitude' => $pedagang->longitude,
-            'jarak' => $jarakFormat,
+            'jarak' => $jarak,
             'jajanan' => $pedagang->jajanan,
         ];
 
@@ -187,18 +177,7 @@ class PedagangController extends Controller
         $responseBody = [];
 
         foreach ($pedagangs as $pedagang) {
-            $theta = $user->longitude - $pedagang->longitude;
-            $dist = sin(deg2rad($user->latitude)) * sin(deg2rad($pedagang->latitude)) + cos(deg2rad($user->latitude)) * cos(deg2rad($pedagang->latitude)) * cos(deg2rad($theta));
-            $dist = acos($dist);
-            $dist = rad2deg($dist);
-            $miles = $dist * 60 * 1.1515;
-            $jarak = ($miles * 1.609344);
-
-            if (is_nan($jarak)) {
-                $jarak = 0;
-            }
-
-            $jarakFormat = number_format($jarak, 2) . ' km';
+            $jarak = $this->distance($user->latitude, $user->longitude, $pedagang->latitude, $pedagang->longitude);
 
             $responseBody[] = [
                 'id' => $pedagang->id,
@@ -213,7 +192,7 @@ class PedagangController extends Controller
                 'sertifikasi_halal' => $pedagang->sertifikasi_halal,
                 'latitude' => $pedagang->latitude,
                 'longitude' => $pedagang->longitude,
-                'jarak' => $jarakFormat,
+                'jarak' => $jarak,
                 'jajanan' => $pedagang->jajanan,
             ];
         }
@@ -221,5 +200,18 @@ class PedagangController extends Controller
         return response([
             'data' => $responseBody,
         ], 200);
+    }
+
+    function distance($lat1, $lon1, $lat2, $lon2) {
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $jarak = ($miles * 1.609344);
+
+        $jarakFormat = number_format($jarak, 2) . ' km';
+
+        return $jarakFormat;
     }
 }

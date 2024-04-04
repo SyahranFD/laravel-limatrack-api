@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('jam_tutup');
             $table->string('daerah_dagang');
             $table->float('average_rating')->default(0);
+            $table->string('dokumen_sertifikat_halal')->nullable()->default(null);
             $table->boolean('sertifikasi_halal')->default(false);
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

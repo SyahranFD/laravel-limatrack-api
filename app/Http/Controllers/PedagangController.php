@@ -16,33 +16,31 @@ class PedagangController extends Controller
 
         $user = auth()->user();
 
-        if ($request->hasFile('banner')) {
-            $imageName = time().'_'.Str::uuid().'.'.$request->banner->extension();
-            $uploadedImage = $request->banner->storeAs('public/banner-pedagang', $imageName);
-            $imagePath = 'banner-pedagang/'.$imageName;
+        $imageName = time().'_'.Str::uuid().'.'.$request->banner->extension();
+        $uploadedImage = $request->banner->storeAs('public/banner-pedagang', $imageName);
+        $imagePath = 'https://limatrack-api.rplrus.com/storage/banner-pedagang/'.$imageName;
 
-            $pedagang = Pedagang::create([
-                'id' => 'pedagang-'.Str::uuid(),
-                'user_id' => $user->id,
-                'nama_pedagang' => $user->nama_lengkap,
-                'nama_warung' => $request->nama_warung,
-                'banner' => $imagePath,
-                'jam_buka' => $request->jam_buka,
-                'jam_tutup' => $request->jam_tutup,
-                'daerah_dagang' => $request->daerah_dagang,
-                'latitude' => $user->latitude,
-                'longitude' => $user->longitude,
-            ]);
+        $imageNameSertifikat = time().'_'.Str::uuid().'.'.$request->dokumen_sertifikat_halal->extension();
+        $uploadedImageSertifikat = $request->dokumen_sertifikat_halal->storeAs('public/sertifikat-halal', $imageNameSertifikat);
+        $imagePathSertifikat = 'https://limatrack-api.rplrus.com/storage/sertifikat-halal/'.$imageNameSertifikat;
 
-            return response([
-                'data' => $pedagang,
-            ], 201);
+        $pedagang = Pedagang::create([
+            'id' => 'pedagang-'.Str::uuid(),
+            'user_id' => $user->id,
+            'nama_pedagang' => $user->nama_lengkap,
+            'nama_warung' => $request->nama_warung,
+            'banner' => $imagePath,
+            'jam_buka' => $request->jam_buka,
+            'jam_tutup' => $request->jam_tutup,
+            'daerah_dagang' => $request->daerah_dagang,
+            'dokumen_sertifikat_halal' => $imagePathSertifikat,
+            'latitude' => $user->latitude,
+            'longitude' => $user->longitude,
+        ]);
 
-        } else {
-            return response([
-                'error' => 'No file found for banner',
-            ], 400);
-        }
+        return response([
+            'data' => $pedagang,
+        ], 201);
     }
 
     public function update(PedagangRequest $request)
@@ -58,7 +56,7 @@ class PedagangController extends Controller
 
             $imageName = time().'_'.Str::uuid().'.'.$request->banner->extension();
             $uploadedImage = $request->banner->storeAs('public/banner', $imageName);
-            $imagePath = 'banner/'.$imageName;
+            $imagePath = 'https://limatrack-api.rplrus.com/storage/banner/'.$imageName;
 
             $pedagang->update([
                 'nama_warung' => $request->nama_warung,
@@ -87,28 +85,43 @@ class PedagangController extends Controller
         }
     }
 
-    public function updateBuka()
+    public function updateStatus(Request $request)
     {
         $user = auth()->user();
 
         $pedagang = Pedagang::whereBelongsTo($user)->first();
 
-        if ($pedagang->buka == false) {
-            $pedagang->update([
-                'buka' => true,
-            ]);
-        } else {
-            $pedagang->update([
-                'buka' => false,
-            ]);
-        }
+        $pedagang->update([
+            'status' => $request->status
+        ]);
 
         return response([
             'data' => $pedagang,
         ], 200);
     }
 
-    public function updateSertifikasi($id)
+    public function updateSertifikat(Request $request)
+    {
+        $user = auth()->user();
+
+        $pedagang = Pedagang::whereBelongsTo($user)->first();
+
+        Storage::delete('public/'.$pedagang->dokumen_sertifikat_halal);
+
+        $imageName = time().'_'.Str::uuid().'.'.$request->dokumen_sertifikat_halal->extension();
+        $uploadedImage = $request->dokumen_sertifikat_halal->storeAs('public/sertifikat-halal', $imageName);
+        $imagePath = 'https://limatrack-api.rplrus.com/storage/sertifikat-halal/'.$imageName;
+
+        $pedagang->update([
+            'dokumen_sertifikat_halal' => $imagePath,
+        ]);
+
+        return response([
+            'data' => $pedagang,
+        ], 200);
+    }
+
+    public function updateSertifikasiByAdmin($id)
     {
         $pedagang = Pedagang::where('id', $id)->first();
 

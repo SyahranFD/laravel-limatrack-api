@@ -44,12 +44,13 @@ Route::prefix('/users')->group(function () {
 Route::prefix('/pedagang')->group(function () {
     Route::post('/store', [PedagangController::class, 'store'])->middleware('auth:sanctum');
     Route::post('/update', [PedagangController::class, 'update'])->middleware('auth:sanctum');
-    Route::put('/update-buka', [PedagangController::class, 'updateBuka'])->middleware('auth:sanctum');
+    Route::put('/update-status', [PedagangController::class, 'updateStatus'])->middleware('auth:sanctum');
     Route::get('/show-current', [PedagangController::class, 'showCurrent'])->middleware('auth:sanctum');
     Route::get('/show/{id}', [PedagangController::class, 'showById'])->middleware('auth:sanctum');
     Route::get('/show-all', [PedagangController::class, 'showAll'])->middleware('auth:sanctum');
+    Route::post('/update-sertifikat', [PedagangController::class, 'updateSertifikat'])->middleware('auth:sanctum');
 
-    Route::put('/{id}/update-sertifikasi', [PedagangController::class, 'updateSertifikasi']);
+    Route::put('/{id}/update-sertifikasi-admin', [PedagangController::class, 'updateSertifikasiByAdmin']);
 
     Route::post('/{pedagangId}/jajanan', [JajananController::class, 'store'])->middleware('auth:sanctum');
     Route::put('/{pedagangId}/jajanan/{jajananId}', [JajananController::class, 'update'])->middleware('auth:sanctum');

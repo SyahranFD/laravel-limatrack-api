@@ -24,6 +24,7 @@ class Pedagang extends Model
         'jam_tutup',
         'daerah_dagang',
         'average_rating',
+        'dokumen_sertifikat_halal',
         'sertifikasi_halal',
         'latitude',
         'longitude',

@@ -35,6 +35,22 @@ class DatabaseSeeder extends Seeder
             'longitude' => '110.84305125340968',
         ]);
 
+        User::create([
+            'id' => 'user-'.fake()->uuid(),
+            'nama_lengkap' => 'Rio Hermawan',
+            'email' => 'rio@gmail.com',
+            'password' => Hash::make('riopass'),
+            'role' => 'customer',
+        ]);
+
+        User::create([
+            'id' => 'user-'.fake()->uuid(),
+            'nama_lengkap' => 'Rio Hermawan',
+            'email' => 'rio@gmail.com',
+            'password' => Hash::make('riopass'),
+            'role' => 'pedagang',
+        ]);
+
         User::factory()
         ->has(
             Pedagang::factory()

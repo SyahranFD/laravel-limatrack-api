@@ -21,6 +21,11 @@ class OrderItem extends Model
         'total_harga',
     ];
 
+    protected $casts = [
+        'jumlah' => 'integer',
+        'total_harga' => 'integer',
+    ];
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

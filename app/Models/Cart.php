@@ -23,6 +23,11 @@ class Cart extends Model
         'total_harga'
     ];
 
+    protected $casts = [
+        'jumlah' => 'integer',
+        'total_harga' => 'integer'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

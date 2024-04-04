@@ -22,6 +22,10 @@ class Order extends Model
         'total_keseluruhan'
     ];
 
+    protected $casts = [
+        'total_keseluruhan' => 'integer'
+    ];
+
     // belongsTo
     public function user(): BelongsTo
     {

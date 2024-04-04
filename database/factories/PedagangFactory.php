@@ -18,7 +18,7 @@ class PedagangFactory extends Factory
     {
         return [
             'id' => fake()->uuid(),
-            'buka' => 1,
+            'status' => 'buka',
             'jam_buka' => '08:00',
             'jam_tutup' => '17:00',
             'daerah_dagang' => 'Kudus',

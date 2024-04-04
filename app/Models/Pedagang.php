@@ -19,7 +19,7 @@ class Pedagang extends Model
         'nama_warung',
         'nama_pedagang',
         'banner',
-        'buka',
+        'status',
         'jam_buka',
         'jam_tutup',
         'daerah_dagang',
@@ -27,6 +27,11 @@ class Pedagang extends Model
         'sertifikasi_halal',
         'latitude',
         'longitude',
+    ];
+
+    protected $casts = [
+        'average_rating' => 'float',
+        'sertifikasi_halal' => 'boolean',
     ];
 
     public function user(): BelongsTo

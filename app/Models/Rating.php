@@ -21,6 +21,10 @@ class Rating extends Model
         'komentar',
     ];
 
+    protected $casts = [
+        'rating' => 'integer',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

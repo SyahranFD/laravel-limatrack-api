@@ -24,6 +24,11 @@ class Jajanan extends Model
         'kategori',
     ];
 
+    protected $casts = [
+        'harga' => 'integer',
+        'tersedia' => 'boolean',
+    ];
+
     public function pedagang(): BelongsTo
     {
         return $this->belongsTo(Pedagang::class);

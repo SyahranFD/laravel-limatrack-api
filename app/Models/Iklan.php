@@ -21,6 +21,10 @@ class Iklan extends Model
         'tanggal_selesai',
     ];
 
+    protected $casts = [
+        'nominal_bayar' => 'integer'
+    ];
+
     public function pedagang(): BelongsTo
     {
         return $this->belongsTo(Pedagang::class);

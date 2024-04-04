@@ -17,4 +17,8 @@ class ZonaTerlarang extends Model
         'longitude',
         'radius',
     ];
+
+    protected $casts = [
+        'radius' => 'integer',
+    ];
 }

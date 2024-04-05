@@ -62,4 +62,13 @@ class OrderController extends Controller
             'data' => $orders,
         ], 200);
     }
+
+    public function showByPedagangId($pedagangId)
+    {
+        $orders = Order::where('pedagang_id', $pedagangId)->with('orderItem')->get();
+
+        return response([
+            'data' => $orders,
+        ], 200);
+    }
 }

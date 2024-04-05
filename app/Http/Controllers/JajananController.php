@@ -17,7 +17,7 @@ class JajananController extends Controller
 
         $imageName = time().'_'.Str::uuid().'.'.$request->image->extension();
         $uploadedImage = $request->image->storeAs('public/jajanan', $imageName);
-        $imagePath = 'jajanan/'.$imageName;
+        $imagePath = 'https://limatrack-api.rplrus.com/storage/jajanan/'.$imageName;
 
         $jajanan = Jajanan::create([
             'id' => 'jajanan-'.Str::uuid(),
@@ -48,7 +48,7 @@ class JajananController extends Controller
 
             $imageName = time().'_'.Str::uuid().'.'.$request->image->extension();
             $uploadedImage = $request->image->storeAs('public/jajanan', $imageName);
-            $imagePath = 'jajanan/'.$imageName;
+            $imagePath = 'https://limatrack-api.rplrus.com/storage/jajanan/'.$imageName;
 
             $jajanan->update([
                 'pedagang_id' => $pedagangId,

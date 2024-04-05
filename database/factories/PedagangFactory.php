@@ -17,7 +17,7 @@ class PedagangFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => fake()->uuid(),
+            'id' => 'pedagang-'.fake()->uuid(),
             'status' => 'buka',
             'jam_buka' => '08:00',
             'jam_tutup' => '17:00',

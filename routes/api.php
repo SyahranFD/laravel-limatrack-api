@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OtpController;
 use App\Http\Controllers\PedagangController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZonaTerlarangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -78,4 +79,11 @@ Route::prefix('/langganan')->group(function () {
     Route::post('/store', [LanggananController::class, 'store'])->middleware('auth:sanctum');
     Route::get('/show-current', [LanggananController::class, 'showCurrent'])->middleware('auth:sanctum');
     Route::delete('/delete/{pedagangId}', [LanggananController::class, 'delete'])->middleware('auth:sanctum');
+});
+
+Route::prefix('/zona-terlarang')->group(function () {
+    Route::post('/store', [ZonaTerlarangController::class, 'store']);
+    Route::put('/update/{zonaTerlarangId}', [ZonaTerlarangController::class, 'update']);
+    Route::delete('/delete/{zonaTerlarangId}', [ZonaTerlarangController::class, 'destroy']);
+    Route::get('/show-all', [ZonaTerlarangController::class, 'index']);
 });

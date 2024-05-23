@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Pedagang;
 use App\Models\User;
+use App\Models\ZonaTerlarang;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -316,5 +317,12 @@ class DatabaseSeeder extends Seeder
                 'latitude' => '-6.76644849421157',
                 'longitude' => '110.83749700000001',
             ]);
+
+        ZonaTerlarang::create([
+            'id' => 'zona-'.fake()->uuid(),
+            'latitude' => '-6.752957',
+            'longitude' => '110.842589',
+            'radius' => 100,
+        ]);
     }
 }

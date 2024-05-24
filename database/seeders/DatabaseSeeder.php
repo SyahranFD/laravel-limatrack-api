@@ -324,5 +324,19 @@ class DatabaseSeeder extends Seeder
             'longitude' => '110.842589',
             'radius' => 100,
         ]);
+
+        ZonaTerlarang::create([
+            'id' => 'zona-'.fake()->uuid(),
+            'latitude' => '-6.767501561869681',
+            'longitude' => '110.83722895964654',
+            'radius' => 100,
+        ]);
+
+        ZonaTerlarang::create([
+            'id' => 'zona-'.fake()->uuid(),
+            'latitude' => '-6.981755453259006',
+            'longitude' => '110.45097843752347',
+            'radius' => 100,
+        ]);
     }
 }

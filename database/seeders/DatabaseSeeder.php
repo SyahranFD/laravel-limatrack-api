@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'longitude' => '110.83634296042186',
         ]);
 
-        User::create([
+        $fattah = User::create([
             'id' => 'user-'.fake()->uuid(),
             'nama_lengkap' => 'Fattah Anggit',
             'email' => 'fadza20@gmail.com',
@@ -87,7 +87,7 @@ class DatabaseSeeder extends Seeder
             'longitude' => $rio->longitude,
         ]);
 
-        $pedagangRio->jajanan()->create([
+        $siomay5000 = $pedagangRio->jajanan()->create([
             'id' => 'jajanan-'.fake()->uuid(),
             'nama' => 'Siomay 5000',
             'harga' => 5000,
@@ -123,7 +123,7 @@ class DatabaseSeeder extends Seeder
             'kategori' => 'Jajanan Utama'
         ]);
 
-        $pedagangRio->jajanan()->create([
+        $batagor3000 = $pedagangRio->jajanan()->create([
             'id' => 'jajanan-'.fake()->uuid(),
             'nama' => 'Batagor 3000',
             'harga' => 3000,
@@ -139,6 +139,36 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => 'Jika ada yang mau dirubah, tolong isi di catatan ya.',
             'image' => 'https://cdn0-production-images-kly.akamaized.net/hjyQ1Kv6CwzCSNmNNYcevSRv-Ok=/1200x675/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1364565/original/091028300_1475593576-batagor.jpg',
             'kategori' => 'Lainnya'
+        ]);
+
+        $orderRio = $pedagangRio->order()->create([
+            'id' => 'order-'.fake()->uuid(),
+            'user_id' => $fattah->id,
+            'pedagang_id' => $pedagangRio->id,
+            'nama_user' => $fattah->nama_lengkap,
+            'status' => 'Belum Jadi',
+            'metode_pembayaran' => 'cash',
+            'total_keseluruhan' => 21000,
+        ]);
+
+        $pedagangRio->orderItem()->create([
+            'id' => 'order-item-'.fake()->uuid(),
+            'order_id' => $orderRio->id,
+            'jajanan_id' => $siomay5000->id,
+            'nama_warung' => $pedagangRio->nama_warung,
+            'nama_jajanan' => $siomay5000->nama,
+            'jumlah' => 3,
+            'total_harga' => 15000,
+        ]);
+
+        $pedagangRio->orderItem()->create([
+            'id' => 'order-item-'.fake()->uuid(),
+            'order_id' => $orderRio->id,
+            'jajanan_id' => $batagor3000->id,
+            'nama_warung' => $pedagangRio->nama_warung,
+            'nama_jajanan' => $batagor3000->nama,
+            'jumlah' => 2,
+            'total_harga' => 6000,
         ]);
 
         User::factory()
@@ -338,25 +368,40 @@ class DatabaseSeeder extends Seeder
                 'longitude' => '110.83749700000001',
             ]);
 
-        // ZonaTerlarang::create([
-        //     'id' => 'zona-'.fake()->uuid(),
-        //     'latitude' => '-6.752957',
-        //     'longitude' => '110.842589',
-        //     'radius' => 100,
-        // ]);
+        ZonaTerlarang::create([
+            'id' => 'zona-'.fake()->uuid(),
+            'latitude' => '-6.814865409368007',
+            'longitude' => '110.83955689282998',
+            'radius' => 100,
+            'nama' => 'Jl. Jenderal Ahmad Yani',
+            'daerah' => 'Kudus',
+        ]);
 
-        // ZonaTerlarang::create([
-        //     'id' => 'zona-'.fake()->uuid(),
-        //     'latitude' => '-6.767501561869681',
-        //     'longitude' => '110.83722895964654',
-        //     'radius' => 100,
-        // ]);
+        ZonaTerlarang::create([
+            'id' => 'zona-'.fake()->uuid(),
+            'latitude' => '-6.803834649665383',
+            'longitude' => '110.86129779279091',
+            'radius' => 100,
+            'nama' => 'Jl. Jenderal Sudirman',
+            'daerah' => 'Kudus',
+        ]);
 
-        // ZonaTerlarang::create([
-        //     'id' => 'zona-'.fake()->uuid(),
-        //     'latitude' => '-6.981755453259006',
-        //     'longitude' => '110.45097843752347',
-        //     'radius' => 100,
-        // ]);
+        ZonaTerlarang::create([
+            'id' => 'zona-'.fake()->uuid(),
+            'latitude' => '-6.80593891524456',
+            'longitude' => '110.83564418465694',
+            'radius' => 100,
+            'nama' => 'Jl. Sunan Kudus',
+            'daerah' => 'Kudus',
+        ]);
+
+        ZonaTerlarang::create([
+            'id' => 'zona-'.fake()->uuid(),
+            'latitude' => '-6.981755453259006',
+            'longitude' => '110.45097843752347',
+            'radius' => 100,
+            'nama' => 'Zona Terlarang 1 Semarang',
+            'daerah' => 'Semarang',
+        ]);
     }
 }

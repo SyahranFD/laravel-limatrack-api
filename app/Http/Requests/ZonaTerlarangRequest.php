@@ -25,6 +25,8 @@ class ZonaTerlarangRequest extends FormRequest
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'radius' => 'required|numeric',
+            'nama' => 'required|string',
+            'daerah' => 'required|string'
         ];
     }
 }

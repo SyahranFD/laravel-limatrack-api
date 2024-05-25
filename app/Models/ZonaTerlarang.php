@@ -16,6 +16,8 @@ class ZonaTerlarang extends Model
         'latitude',
         'longitude',
         'radius',
+        'nama',
+        'daerah'
     ];
 
     protected $casts = [

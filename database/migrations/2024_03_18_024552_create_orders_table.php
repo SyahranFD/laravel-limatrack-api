@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('user_id');
             $table->string('pedagang_id');
+            $table->string('nama_user');
             $table->string('status');
             $table->string('metode_pembayaran');
             $table->integer('total_keseluruhan');

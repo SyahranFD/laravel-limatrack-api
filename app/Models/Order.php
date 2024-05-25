@@ -17,6 +17,7 @@ class Order extends Model
         'id',
         'user_id',
         'pedagang_id',
+        'nama_user',
         'status',
         'metode_pembayaran',
         'total_keseluruhan'

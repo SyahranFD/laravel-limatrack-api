@@ -17,6 +17,7 @@ class OrderItem extends Model
         'order_id',
         'jajanan_id',
         'nama_warung',
+        'nama_jajanan',
         'jumlah',
         'total_harga',
     ];

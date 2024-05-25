@@ -38,6 +38,26 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'id' => 'user-'.fake()->uuid(),
+            'nama_lengkap' => 'Fattah Anggit',
+            'email' => 'fadza20@gmail.com',
+            'password' => Hash::make('fattahpass'),
+            'role' => 'customer',
+            'latitude' => '-6.767837813052352',
+            'longitude' => '110.83634296042186',
+        ]);
+
+        User::create([
+            'id' => 'user-'.fake()->uuid(),
+            'nama_lengkap' => 'Fattah Anggit',
+            'email' => 'fadza20@gmail.com',
+            'password' => Hash::make('fattahpass'),
+            'role' => 'pedagang',
+            'latitude' => '-6.767837813052352',
+            'longitude' => '110.83634296042186',
+        ]);
+
+        User::create([
+            'id' => 'user-'.fake()->uuid(),
             'nama_lengkap' => 'Rio Hermawan',
             'email' => 'rio@gmail.com',
             'password' => Hash::make('riopass'),

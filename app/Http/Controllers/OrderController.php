@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
-    public function store(OrderRequest $request, $pedagangId, $cartId)
+    public function store(OrderRequest $request, $pedagangId)
     {
         $request->validated();
         $user = auth()->user();
@@ -20,7 +20,6 @@ class OrderController extends Controller
             'id' => 'order-'.Str::uuid(),
             'user_id' => $user->id,
             'pedagang_id' => $pedagangId,
-            'cart_id' => $cartId,
             'status' => $request->status,
             'metode_pembayaran' => $request->metode_pembayaran,
             'total_keseluruhan' => 0,

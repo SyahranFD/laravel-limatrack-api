@@ -70,7 +70,7 @@ Route::prefix('/image-verifikasi')->group(function () {
 });
 
 Route::prefix('/order')->group(function () {
-    Route::post('/store/{pedagangId}/{cartId}', [OrderController::class, 'store'])->middleware('auth:sanctum');
+    Route::post('/store/{pedagangId}', [OrderController::class, 'store'])->middleware('auth:sanctum');
     Route::get('/show-current', [OrderController::class, 'showCurrent'])->middleware('auth:sanctum');
     Route::get('/show-pedagang/{pedagangId}', [OrderController::class, 'showByPedagangId'])->middleware('auth:sanctum');
 });
